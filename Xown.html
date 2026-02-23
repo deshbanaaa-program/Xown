@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Panel - X BLACK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 80% 10%, #1f1f1f, #050505);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .glass-panel {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 32px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            color: #f0f0f0;
+        }
+
+        h2 {
+            font-weight: 400;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(145deg, #e0e0e0, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .sub {
+            color: #aaa;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* Form login */
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .input-field {
+            margin-bottom: 24px;
+        }
+
+        .input-field label {
+            display: block;
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-bottom: 6px;
+        }
+
+        .input-field input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #3a3a3a;
+            border-radius: 30px;
+            padding: 14px 20px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .input-field input:focus {
+            border-color: #7a7a7a;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .error-message {
+            color: #ff8a8a;
+            text-align: center;
+            margin-top: 15px;
+            background: #330000;
+            padding: 8px;
+            border-radius: 50px;
+            display: none;
+        }
+
+        /* Daftar pesan (setelah login) */
+        .message-list {
+            margin-top: 25px;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #2a2a2a;
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .message-header strong {
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .message-email {
+            background: #2a2a2a;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        .message-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-top: 1px dashed #333;
+            border-bottom: 1px dashed #333;
+            color: #ddd;
+        }
+
+        .message-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .timestamp {
+            color: #777;
+            font-size: 0.75rem;
+        }
+
+        .reply-btn {
+            background: rgba(70, 130, 200, 0.2);
+            border: 1px solid #2a6f9c;
+            color: #b0e0ff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reply-btn:hover {
+            background: rgba(70, 130, 200, 0.4);
+            border-color: #3a8fcc;
+        }
+
+        .owner-note {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #9a9a9a;
+            border: 1px solid #2e2e2e;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #5a5a5a;
+            color: #ccc;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #2a2a2a;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-panel" id="panel">
+        <h2>OWNER PANEL</h2>
+        <div class="sub">X BLACK • manajemen pesan</div>
+
+        <!-- Form Login -->
+        <div id="loginSection">
+            <div class="login-form">
+                <div class="input-field">
+                    <label>Nama</label>
+                    <input type="text" id="loginName" placeholder="Putra">
+                </div>
+                <div class="input-field">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" placeholder="••••••••">
+                </div>
+                <button class="btn" id="loginBtn">Masuk</button>
+                <div id="loginError" class="error-message">Nama atau password salah</div>
+            </div>
+        </div>
+
+        <!-- Konten setelah login (awal disembunyikan) -->
+        <div id="ownerContent" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-weight: 300;">📬 Pesan Masuk</h3>
+                <button class="logout-btn" id="logoutBtn">Keluar</button>
+            </div>
+
+            <div id="messageContainer" class="message-list">
+                <!-- Akan diisi JavaScript -->
+            </div>
+
+            <div class="owner-note">
+                ⚡ Balasan akan dikirim dari <strong>@deshbanaaaprogram@gmail.com</strong> (akun owner).<br>
+                Klik "Balas via Gmail" untuk membuka compose.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Data login
+            const VALID_USERNAME = 'Putra';
+            const VALID_PASSWORD = '2012';
+
+            const loginSection = document.getElementById('loginSection');
+            const ownerContent = document.getElementById('ownerContent');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginError = document.getElementById('loginError');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const messageContainer = document.getElementById('messageContainer');
+
+            // Cek status login dari sessionStorage
+            let isLoggedIn = sessionStorage.getItem('ownerLoggedIn') === 'true';
+
+            function renderMessages() {
+                const messages = JSON.parse(localStorage.getItem('messages')) || [];
+                if (messages.length === 0) {
+                    messageContainer.innerHTML = '<div style="text-align:center; padding:30px; color:#777;">Belum ada pesan.</div>';
+                    return;
+                }
+
+                // Urutkan dari terbaru (ID descending)
+                messages.sort((a,b) => b.id - a.id);
+
+                let html = '';
+                messages.forEach(msg => {
+                    // Siapkan mailto: isi subjek dan body sederhana
+                    const subject = encodeURIComponent('Balasan dari Owner X BLACK');
+                    const body = encodeURIComponent(`Halo ${msg.nama},\n\nTerima kasih atas pesan Anda:\n"${msg.pesan}"\n\n--\nOwner X BLACK`);
+                    const mailto = `mailto:${msg.email}?subject=${subject}&body=${body}`;
+
+                    html += `
+                        <div class="message-card">
+                            <div class="message-header">
+                                <span><strong>${escapeHTML(msg.nama)}</strong></span>
+                                <span class="message-email">${escapeHTML(msg.email)}</span>
+                            </div>
+                            <div class="message-content">
+                                ${escapeHTML(msg.pesan)}
+                            </div>
+                            <div class="message-footer">
+                                <span class="timestamp">📅 ${escapeHTML(msg.timestamp)}</span>
+                                <a href="${mailto}" target="_blank" class="reply-btn">✉️ Balas via Gmail</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                messageContainer.innerHTML = html;
+            }
+
+            // Sederhana escape HTML
+            function escapeHTML(str) {
+                return str.replace(/[&<>"]/g, function(m) {
+                    if(m === '&') return '&amp;';
+                    if(m === '<') return '&lt;';
+                    if(m === '>') return '&gt;';
+                    if(m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            function updateUILoginState() {
+                if (isLoggedIn) {
+                    loginSection.classList.add('hidden');
+                    ownerContent.classList.remove('hidden');
+                    renderMessages();
+                } else {
+                    loginSection.classList.remove('hidden');
+                    ownerContent.classList.add('hidden');
+                }
+            }
+
+            // Event login
+            loginBtn.addEventListener('click', function() {
+                const name = document.getElementById('loginName').value.trim();
+                const pass = document.getElementById('loginPass').value.trim();
+
+                if (name === VALID_USERNAME && pass === VALID_PASSWORD) {
+                    sessionStorage.setItem('ownerLoggedIn', 'true');
+                    isLoggedIn = true;
+                    loginError.style.display = 'none';
+                    updateUILoginState();
+                } else {
+                    loginError.style.display = 'block';
+                }
+            });
+
+            // Logout
+            logoutBtn.addEventListener('click', function() {
+                sessionStorage.removeItem('ownerLoggedIn');
+                isLoggedIn = false;
+                updateUILoginState();
+            });
+
+            // Inisialisasi tampilan
+            updateUILoginState();
+
+            // Jika ada perubahan pesan dari tab lain, kita bisa refresh secara periodik
+            // Sederhana: refresh tiap 3 detik jika sedang login
+            if (isLoggedIn) {
+                setInterval(() => {
+                    if (isLoggedIn) renderMessages();
+                }, 3000);
+            }
+        })();
+    </script>
+</body>
+</html>
